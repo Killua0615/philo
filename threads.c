@@ -1,0 +1,49 @@
+#include "philo.h"
+
+/*
+ * 哲学者スレッドを生成し、メインスレッドで monitor() を呼んで監視。
+ * 全哲学者スレッドが終了するのを待つ。
+ */
+int init_thread(t_data *d)
+{
+  int i;
+  int created_philos;
+
+  i = 0;
+  while (i < d->num_philos)
+  {
+    d->philos[i].id     = i + 1;
+    d->philos[i].ms_ate = d->ms_start; // 開始前に「最後に食べた時刻」を初期化
+    d->philos[i].data   = d;
+    pthread_mutex_init(&d->philos[i].mtx_ate, NULL);
+
+    if (pthread_create(&d->philos[i].thread, NULL, philo, &d->philos[i]))
+    {
+      printf("Error: pthread_create failed\n");
+      pthread_mutex_destroy(&d->philos[i].mtx_ate);
+      set_end(d);
+      break ;
+    }
+    i++;
+  }
+  created_philos = i;
+
+    // メインスレッド側で監視ループを回す
+    monitor(d);
+
+    // スレッドの終了を待つ
+    i = 0;
+    while (i < created_philos)
+    {
+      pthread_join(d->philos[i].thread, NULL);
+      i++;
+    }
+    // 後処理(個々のミューテックス解放)
+    i = 0;
+    while (i < created_philos)
+    {
+      pthread_mutex_destroy(&d->philos[i].mtx_ate);
+      i++;
+    }
+    return (0);
+}
