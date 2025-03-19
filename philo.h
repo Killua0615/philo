@@ -45,6 +45,7 @@ struct s_data
 
 /* main.c */
 void    usage(void);
+int ft_error(char *message);
 
 /* init.c */
 int     init_data(t_data *data, int argc, char **argv);

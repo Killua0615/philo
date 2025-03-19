@@ -33,28 +33,20 @@ int init_data(t_data *data, int argc, char **argv)
   data->ms_sleep   = ft_atoi(argv[4]);
   data->num_eat    = -1;
   if (argc == 6)
-      data->num_eat = ft_atoi(argv[5]);
-  // 計測開始時刻を少し先に設定
+    data->num_eat = ft_atoi(argv[5]);
   data->ms_start = gettime_ms() + 100;
-
   data->mtx_forks = malloc(data->num_philos * sizeof(pthread_mutex_t));
   if (!data->mtx_forks)
     return (printf("Error: malloc() failed\n"), 1);
-  // フォーク用ミューテックス初期化
-  i = 0;
-  while (i < data->num_philos)
-  {
+  i = -1;
+  while (++i < data->num_philos)
     pthread_mutex_init(&data->mtx_forks[i], NULL);
-    i++;
-  }
   pthread_mutex_init(&data->mtx_print, NULL);
   pthread_mutex_init(&data->mtx_end, NULL);
-
   data->philos = malloc(sizeof(t_philo) * data->num_philos);
   if (!data->philos)
     return (printf("Error: malloc() failed\n"), 1);
   memset(data->philos, 0, sizeof(t_philo) * data->num_philos);
-
   return (0);
 }
 

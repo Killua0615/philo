@@ -17,7 +17,7 @@ OBJS        = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) philosophers.h
+$(NAME): $(OBJS) philo.h
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c

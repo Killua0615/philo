@@ -40,7 +40,7 @@ static inline void philo_one(t_philo *philo)
     // 食べるためのフォークがもう1本ないので、
     // 終了フラグが立つまで待機
     while (check_end(philo->data) == 0)
-        msleep(1);
+      msleep(1);
     pthread_mutex_unlock(pick_fork(1, philo));
   }
 }
@@ -76,31 +76,31 @@ static inline void philo_some(t_philo *philo)
 
   while (check_end(philo->data) == 0)
   {
-      print_status(philo, "is thinking");
-      // フォーク1本目
-      pthread_mutex_lock(pick_fork(1, philo));
-      print_status(philo, "has taken a fork");
-      // フォーク2本目
-      pthread_mutex_lock(pick_fork(2, philo));
-      print_status(philo, "has taken a fork");
-      // 食事開始
-      pthread_mutex_lock(&philo->mtx_ate);
-      philo->ms_ate = gettime_ms();
-      pthread_mutex_unlock(&philo->mtx_ate);
-      print_status(philo, "is eating");
-      msleep(philo->data->ms_eat);
-      // 食べた回数をインクリメント
-      pthread_mutex_lock(&philo->mtx_ate);
-      philo->num_ate++;
-      pthread_mutex_unlock(&philo->mtx_ate);
-      // フォークを2本とも解放
-      pthread_mutex_unlock(pick_fork(2, philo));
-      pthread_mutex_unlock(pick_fork(1, philo));
-      // 食後は眠る
-      print_status(philo, "is sleeping");
-      msleep(philo->data->ms_sleep);
-      // フォーク取得の競合をある程度調整するため、少しだけ待機
-      msleep(1);
+    print_status(philo, "is thinking");
+    // フォーク1本目
+    pthread_mutex_lock(pick_fork(1, philo));
+    print_status(philo, "has taken a fork");
+    // フォーク2本目
+    pthread_mutex_lock(pick_fork(2, philo));
+    print_status(philo, "has taken a fork");
+    // 食事開始
+    pthread_mutex_lock(&philo->mtx_ate);
+    philo->ms_ate = gettime_ms();
+    pthread_mutex_unlock(&philo->mtx_ate);
+    print_status(philo, "is eating");
+    msleep(philo->data->ms_eat);
+    // 食べた回数をインクリメント
+    pthread_mutex_lock(&philo->mtx_ate);
+    philo->num_ate++;
+    pthread_mutex_unlock(&philo->mtx_ate);
+    // フォークを2本とも解放
+    pthread_mutex_unlock(pick_fork(2, philo));
+    pthread_mutex_unlock(pick_fork(1, philo));
+    // 食後は眠る
+    print_status(philo, "is sleeping");
+    msleep(philo->data->ms_sleep);
+    // フォーク取得の競合をある程度調整するため、少しだけ待機
+    msleep(1);
   }
 }
 
@@ -116,14 +116,13 @@ void *philo(void *arg)
   now = gettime_ms();
   while (now < p->data->ms_start)
   {
-      usleep(10);
-      now = gettime_ms();
+    usleep(10);
+    now = gettime_ms();
   }
   // 哲学者が1人しかいないときの特別処理
   if (p->data->num_philos == 1)
-      philo_one(p);
+    philo_one(p);
   else
-      philo_some(p);
-
+    philo_some(p);
   return (NULL);
 }
