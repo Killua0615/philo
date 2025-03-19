@@ -1,17 +1,15 @@
-# **************************************************************************** #
-#                                   Makefile                                   #
-# **************************************************************************** #
+# Makefile
 
-NAME        = philo
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -pthread
+NAME    = philo
+CC      = cc
+CFLAGS  = -Wall -Wextra -Werror -pthread
 
-SRCS        = main.c \
-              philo.c \
-              utils.c \
-              init.c \
-              threads.c \
-              monitor.c
+SRCS    = main.c \
+      		philo.c \
+      		utils.c \
+      		init.c \
+      		threads.c \
+      		monitor.c
 
 OBJS        = $(SRCS:.c=.o)
 

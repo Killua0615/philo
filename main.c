@@ -1,8 +1,5 @@
 #include "philo.h"
 
-/*
- * 引数の使い方を表示する関数
- */
 void usage(void)
 {
   printf("Usage: ./philo <num_of_philos> <time_to_die> <time_to_eat> <time_to_sleep> [num_of_must_eat]\n\n");
@@ -21,10 +18,6 @@ int ft_error(char *message)
 	return (1);
 }
 
-/*
- * 引数のバリデーションを行う関数
- * 引数が不正な場合、エラーメッセージを表示して終了
- */
 int validate_args(int argc, char **argv)
 {
   if (argc < 5 || argc > 6)
@@ -51,34 +44,30 @@ int validate_args(int argc, char **argv)
   return (0);
 }
 
-/*
- * メイン関数
- * 引数の処理とデータの初期化、スレッドの生成、モニター開始を行う
- */
 int main(int argc, char **argv)
 {
-    t_data  data;
+  t_data  data;
 
-    if (validate_args(argc, argv))
-        return (1);
-    data.num_philos = atoi(argv[1]);
-    data.ms_die = atoi(argv[2]);
-    data.ms_eat = atoi(argv[3]);
-    data.ms_sleep = atoi(argv[4]);
-    if (argc == 6)
-        data.num_eat = atoi(argv[5]);
-    else
-        data.num_eat = -1;
-    if (init_data(&data, argc, argv))
-    {
-        free_data(&data);
-        return (1);
-    }
-    if (init_thread(&data))
-    {
-        free_data(&data);
-        return (1);
-    }
+  if (validate_args(argc, argv))
+    return (1);
+  data.num_philos = atoi(argv[1]);
+  data.ms_die = atoi(argv[2]);
+  data.ms_eat = atoi(argv[3]);
+  data.ms_sleep = atoi(argv[4]);
+  if (argc == 6)
+    data.num_eat = atoi(argv[5]);
+  else
+    data.num_eat = -1;
+  if (init_data(&data, argc, argv))
+  {
     free_data(&data);
-    return (0);
+    return (1);
+  }
+  if (init_thread(&data))
+  {
+    free_data(&data);
+    return (1);
+  }
+  free_data(&data);
+  return (0);
 }

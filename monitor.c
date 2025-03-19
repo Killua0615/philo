@@ -1,8 +1,5 @@
 #include "philo.h"
 
-/*
- * 哲学者が死んでいないかチェックする関数
- */
 static inline int monitor_dead(t_data *d)
 {
   int         i;
@@ -28,9 +25,6 @@ static inline int monitor_dead(t_data *d)
   return (0);
 }
 
-/*
- * 全員が規定回数以上食べたかチェックする関数
- */
 static inline int monitor_full(t_data *d)
 {
   int i;
@@ -46,7 +40,6 @@ static inline int monitor_full(t_data *d)
     pthread_mutex_unlock(&d->philos[i].mtx_ate);
     i++;
   }
-  // 規定回数が設定されていて、全員が終わった
   if (d->num_eat != -1 && cnt_full >= d->num_philos)
   {
     set_end(d);
@@ -55,9 +48,6 @@ static inline int monitor_full(t_data *d)
   return (0);
 }
 
-/*
- * メインスレッドでループしながら、上記チェックを繰り返す
- */
 void monitor(t_data *d)
 {
   while (check_end(d) == 0)

@@ -6,11 +6,8 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <string.h> // memset などで使用する場合
+# include <string.h>
 
-/*
- * 構造体定義
- */
 typedef struct s_data      t_data;
 typedef struct s_philo     t_philo;
 
@@ -30,13 +27,13 @@ struct s_data
     int                 ms_die;
     int                 ms_eat;
     int                 ms_sleep;
-    int                 num_eat;        // (オプション) 規定の食事回数
-    long long           ms_start;       // 計測開始時刻
-    int                 is_end;         // 終了フラグ
-    pthread_mutex_t     *mtx_forks;     // フォーク用ミューテックスの配列
-    pthread_mutex_t     mtx_print;      // 標準出力保護用
-    pthread_mutex_t     mtx_end;        // 終了フラグ保護用
-    t_philo             *philos;        // 哲学者情報の配列
+    int                 num_eat;
+    long long           ms_start;       
+    int                 is_end;         
+    pthread_mutex_t     *mtx_forks;     
+    pthread_mutex_t     mtx_print;      
+    pthread_mutex_t     mtx_end;        
+    t_philo             *philos;        
 };
 
 /*
