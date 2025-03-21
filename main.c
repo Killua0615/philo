@@ -1,16 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 16:57:10 by nateshim          #+#    #+#             */
+/*   Updated: 2025/03/21 17:01:03 by nateshim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	usage(void)
-{
-	printf("Usage: ./philo <num_of_philos> <time_to_die> <time_to_eat> <time_to_sleep> [num_of_must_eat]\n\n");
-	printf("Arguments:\n");
-	printf("  <num_of_philos>    Number of philosophers (1 <= num_of_philos <= 200)\n");
-	printf("  <time_to_die>      Time in milliseconds after which philosopher dies if they don't eat\n");
-	printf("  <time_to_eat>      Time in milliseconds each philosopher spends eating\n");
-	printf("  <time_to_sleep>    Time in milliseconds each philosopher spends sleeping\n");
-	printf("  [num_of_must_eat]  Optional: Number of times each philosopher must eat before the simulation ends\n");
-	printf("                      If not provided,philosophers can eat any number of times\n");
-}
+#include "philo.h"
 
 int	ft_error(char *message)
 {
@@ -27,10 +27,7 @@ int	validate_args(int argc, char **argv)
 	int	num_of_must_eat;
 
 	if (argc < 5 || argc > 6)
-	{
-		usage();
 		return (ft_error("Error: Invalid number of arguments."));
-	}
 	num_philos = atoi(argv[1]);
 	time_to_die = atoi(argv[2]);
 	time_to_eat = atoi(argv[3]);
@@ -38,19 +35,19 @@ int	validate_args(int argc, char **argv)
 	if (num_philos < 1 || num_philos > 200)
 		return (ft_error("Error: num_of_philos must be between 1 and 200."));
 	if (time_to_die < 60 || time_to_eat < 60 || time_to_sleep < 60)
-		return (ft_error("Error: time_to_die,time_to_eat,time_to_sleep must be >= 60 ms."));
+		return (ft_error("Error: Invalid number of arguments."));
 	if (argc == 6)
 	{
 		num_of_must_eat = atoi(argv[5]);
 		if (num_of_must_eat < 0)
-			return (ft_error("Error: num_of_must_eat must be a non-negative number."));
+			return (ft_error("Error: Invalid number of arguments."));
 	}
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data data;
+	t_data	data;
 
 	if (validate_args(argc, argv))
 		return (1);
