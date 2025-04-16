@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:53 by nateshim          #+#    #+#             */
-/*   Updated: 2025/03/21 16:57:55 by nateshim         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:41:57 by natsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,25 @@ struct					s_data
 	t_philo				*philos;
 };
 
-/*
- * 関数プロトタイプ
- */
-
-/* main.c */
+// main.c
 void					usage(void);
 int						ft_error(char *message);
 
-/* init.c */
+// init.c
 int						init_data(t_data *data, int argc, char **argv);
 int						valid_data(int argc, t_data *data);
 void					free_data(t_data *data);
 
-/* threads.c */
+// threads.c
 int						init_thread(t_data *data);
 
-/* monitor.c */
+// monitor.c
 void					monitor(t_data *data);
 
-/* philo.c */
+// philo.c
 void					*philo(void *arg);
 
-/* utils.c */
+// utils.c
 long long				gettime_ms(void);
 void					msleep(unsigned int ms);
 int						check_end(t_data *d);
