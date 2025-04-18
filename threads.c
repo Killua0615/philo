@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:57 by nateshim          #+#    #+#             */
-/*   Updated: 2025/04/17 20:28:50 by natsumi          ###   ########.fr       */
+/*   Updated: 2025/04/18 15:48:07 by nateshim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,15 @@ int	init_thread(t_data *d)
 	return (0);
 }
 
-int increment_and_check_eat_count(t_philo *philo)
+int	increment_and_check_eat_count(t_philo *philo)
 {
-  // num_ate をインクリメントして、上限(num_eat)に達していないかチェック
-  pthread_mutex_lock(&philo->mtx_ate);
-
-  philo->num_ate++;
-  // 「num_eat != -1」かつ「num_ate >= num_eat」なら、もう充分食べた
-  if (philo->data->num_eat != -1 && philo->num_ate >= philo->data->num_eat)
-  {
-    pthread_mutex_unlock(&philo->mtx_ate);
-    return (0); // 0を返して「もうループ終了してOK」を通知
-  }
+	pthread_mutex_lock(&philo->mtx_ate);
+	philo->num_ate++;
+	if (philo->data->num_eat != -1 && philo->num_ate >= philo->data->num_eat)
+	{
+		pthread_mutex_unlock(&philo->mtx_ate);
+		return (0);
+	}
 	pthread_mutex_unlock(&philo->mtx_ate);
-	return (1); // 1を返して「まだ続行可能」を通知
+	return (1);
 }

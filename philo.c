@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:42 by nateshim          #+#    #+#             */
-/*   Updated: 2025/04/17 20:41:22 by natsumi          ###   ########.fr       */
+/*   Updated: 2025/04/18 15:47:07 by nateshim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,36 +68,33 @@ static inline void	philosleep(t_philo *philo)
 	}
 }
 
-static inline void philo_some(t_philo *philo)
+static inline void	philo_some(t_philo *philo)
 {
-  philosleep(philo);
-  while (check_end(philo->data) == 0)
-  {
-    print_status(philo, "is thinking");
-    pthread_mutex_lock(pick_fork(1, philo));
-    print_status(philo, "has taken a fork");
-    pthread_mutex_lock(pick_fork(2, philo));
-    print_status(philo, "has taken a fork");
-    pthread_mutex_lock(&philo->mtx_ate);
-    philo->ms_ate = gettime_ms();
-    pthread_mutex_unlock(&philo->mtx_ate);
-    print_status(philo, "is eating");
-    msleep(philo->data->ms_eat);
-    // --- ここを分割 ---
-    // 食事回数をインクリメント＆チェック
-    if (!increment_and_check_eat_count(philo))
-    {
-        // 0が返ってきたらノルマ達成なのでフォークを離して抜ける
-        pthread_mutex_unlock(pick_fork(2, philo));
-        pthread_mutex_unlock(pick_fork(1, philo));
-        break;
-    }
-    pthread_mutex_unlock(pick_fork(2, philo));
-    pthread_mutex_unlock(pick_fork(1, philo));
-    print_status(philo, "is sleeping");
-    msleep(philo->data->ms_sleep);
-    msleep(1);
-  }
+	philosleep(philo);
+	while (check_end(philo->data) == 0)
+	{
+		print_status(philo, "is thinking");
+		pthread_mutex_lock(pick_fork(1, philo));
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(pick_fork(2, philo));
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(&philo->mtx_ate);
+		philo->ms_ate = gettime_ms();
+		pthread_mutex_unlock(&philo->mtx_ate);
+		print_status(philo, "is eating");
+		msleep(philo->data->ms_eat);
+		if (!increment_and_check_eat_count(philo))
+		{
+			pthread_mutex_unlock(pick_fork(2, philo));
+			pthread_mutex_unlock(pick_fork(1, philo));
+			break ;
+		}
+		pthread_mutex_unlock(pick_fork(2, philo));
+		pthread_mutex_unlock(pick_fork(1, philo));
+		print_status(philo, "is sleeping");
+		msleep(philo->data->ms_sleep);
+		msleep(1);
+	}
 }
 
 void	*philo(void *arg)

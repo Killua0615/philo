@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:36 by nateshim          #+#    #+#             */
-/*   Updated: 2025/04/18 14:33:10 by natsumi          ###   ########.fr       */
+/*   Updated: 2025/04/18 15:46:28 by nateshim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ void	monitor(t_data *d)
 {
 	while (check_end(d) == 0)
 	{
-		// 死亡チェック
 		if (monitor_dead(d))
 			break ;
-		// 満腹チェック
 		if (monitor_full(d))
 			break ;
 		usleep(10);
