@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nateshim <nateshim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:36 by nateshim          #+#    #+#             */
-/*   Updated: 2025/03/21 16:57:37 by nateshim         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:33:10 by natsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static inline int	monitor_dead(t_data *d)
 			pthread_mutex_lock(&d->mtx_print);
 			printf("%-6lld %d died\n", gettime_ms() - d->ms_start,
 				d->philos[i].id);
-			set_end(d);
 			pthread_mutex_unlock(&d->mtx_print);
+			set_end(d);
 			return (1);
 		}
 		i++;
@@ -64,9 +64,12 @@ void	monitor(t_data *d)
 {
 	while (check_end(d) == 0)
 	{
+		// 死亡チェック
 		if (monitor_dead(d))
 			break ;
+		// 満腹チェック
 		if (monitor_full(d))
 			break ;
+		usleep(10);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: natsumi <natsumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:57:53 by nateshim          #+#    #+#             */
-/*   Updated: 2025/04/16 15:41:57 by natsumi          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:55:43 by natsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void					free_data(t_data *data);
 
 // threads.c
 int						init_thread(t_data *data);
+int 					increment_and_check_eat_count(t_philo *philo);
 
 // monitor.c
 void					monitor(t_data *data);
